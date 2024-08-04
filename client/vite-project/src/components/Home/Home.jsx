@@ -5,7 +5,7 @@ export default function Home() {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:3000/users')
+        axios.get('https://bookclub-6dmc.onrender.com/users')
             .then(response => {
                 setUsers(response.data);
             })
