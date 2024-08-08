@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 
 app.use('/', bookRouter);
 app.use('/', eventRouter);
-app.use('/', userRouter);
+app.use('/user', userRouter);
 
 // Start the server
 app.listen(port, () => {
