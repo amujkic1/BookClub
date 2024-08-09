@@ -3,8 +3,76 @@ import './Login.css';
 import email_icon from '../Assets/email.png';
 import password_icon from '../Assets/password.png';
 import person_icon from '../Assets/person.png';
+import Cookies from 'js-cookie';
 
 function Login() {
+
+    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
+
+    const handleSignUp = async (event) => {
+
+        event.preventDefault();
+
+        fetch('http://localhost:3000/user/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify({ username, email, password })
+        })
+        .then(async response => {
+            console.log('Response:', response);
+            if(response.ok) {
+                console.log(response)
+                const {email,token} = await response.json()
+                Cookies.set('token', token)
+                setErrorMessage('');
+            }else{
+                const errorData = await response.json();
+                setErrorMessage(errorData.error || 'An error occurred');
+            }
+        })
+        .catch(error => {
+            console.error('Signup error:', error);
+            setErrorMessage('Failed to sign up. Please try again.');
+        })
+    }
+    
+    const handleLogin = async (event) => {
+        
+        event.preventDefault();
+        
+        fetch('http://localhost:3000/user/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify({ username, email, password })
+        })
+        .then(async response => {
+            console.log('Response:', response);
+            if(response.ok) {
+                console.log(response)
+                const {email,token} = await response.json()
+                Cookies.set('token', token)
+                setErrorMessage('');
+            }else{
+                const errorData = await response.json();
+                setErrorMessage(errorData.error || 'An error occurred');
+            }
+        })
+        .catch(error => {
+            console.error('Login error:', error);
+            setErrorMessage('Failed to login. Please try again.');
+        })
+        
+
+    };
 
     return(
 
@@ -15,19 +83,33 @@ function Login() {
             </div>
             <div className="inputs">
                 <div className="input">
+                    <img src={person_icon} alt=""></img>
+                    <input type='person' 
+                           onChange={(e) => setUsername(e.target.value)}
+                           value={username}></input>
+                </div>
+                <div className="input">
                     <img src={email_icon} alt=""></img>
-                    <input type='email'></input>
+                    <input type='email' 
+                           onChange={(e) => setEmail(e.target.value)}
+                           value={email}>
+                    </input>
                 </div>
                 <div className="input">
                     <img src={password_icon} alt=""></img>
-                    <input type='password'></input>
+                    <input type='password' 
+                           onChange={(e) => setPassword(e.target.value)}
+                           value={password}></input>
                 </div>
             </div>
+
             <div className="forgot-password">Lost Password? <span>Click Here!</span></div>
             <div className="submit-contaier">
-                <div className="submit">Sign Up</div>
-                <div className="submit">Login</div>
+                <div className="submit" onClick={handleSignUp}>Sign Up</div>
+                <div className="submit" onClick={handleLogin}>Login</div>
             </div>
+
+            {errorMessage && <div className="error-message">{errorMessage}</div>}
         </div>
     )
 }

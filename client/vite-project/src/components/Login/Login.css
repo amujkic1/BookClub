@@ -104,3 +104,9 @@ body {
 .submit:last-child:hover {
     background-color: #5a6268;
 }
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+    font-size: 14px;
+}
