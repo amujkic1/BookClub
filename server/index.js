@@ -16,7 +16,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: ["https://bookclub-frontend1.onrender.com", "http://localhost:5173"],
+    origin: ["https://bookclub-frontend1.onrender.com", "http://localhost:5173", "htto://localhost:3000"],
     credentials: true,
   })
 );
@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 
 app.use('/', bookRouter);
 app.use('/', eventRouter);
-app.use('/', userRouter);
+app.use('/user', userRouter);
 
 // Start the server
 app.listen(port, () => {

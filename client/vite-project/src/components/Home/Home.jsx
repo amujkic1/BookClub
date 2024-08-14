@@ -6,7 +6,8 @@ export default function Home() {
 
     useEffect(() => {
         axios.get('https://bookclub-6dmc.onrender.com/users')
-            .then(response => {
+        //axios.get('http://localhost:3000')
+           .then(response => {
                 setUsers(response.data);
             })
             .catch(error => {
