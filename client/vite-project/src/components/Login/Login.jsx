@@ -19,7 +19,7 @@ function Login() {
 
         event.preventDefault();
 
-        fetch('http://localhost:3000/user/signup', {
+        fetch('https://bookclub-6dmc.onrender.com/user/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -48,7 +48,7 @@ function Login() {
     const handleLogin = async (event) => {
         event.preventDefault();
     
-        fetch('http://localhost:3000/user/login', {
+        fetch('https://bookclub-6dmc.onrender.com/user/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
