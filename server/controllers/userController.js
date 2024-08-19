@@ -1,5 +1,7 @@
 const User = require("../models/userModel")
 const jwt = require('jsonwebtoken')
+const validator = require('validator')
+const bcrypt = require('bcrypt')
 
 const createToken = (_id) => {
     return jwt.sign({_id}, process.env.JWT_SECRET, {expiresIn: '3d'})
@@ -24,6 +26,7 @@ async function login(req, res) {
 } 
 
 async function signup(req, res) {
+    
     const {username, email, password} = req.body
     
     try{
@@ -38,7 +41,114 @@ async function signup(req, res) {
     }
 }
 
+async function createUser(req, res) {
+    
+    const {username, email, password} = req.body
+    
+    if (!username || !email || !password) {
+        return res.status(400).json({ error: 'All fields must be filled!' });
+    }
+    if (!validator.isEmail(email)) {
+        return res.status(400).json({ error: 'Email is not valid' });
+    }
+    if (!validator.isStrongPassword(password)) {
+        return res.status(400).json({ error: 'Password not strong enough' });
+    }
+    
+    try{
+        const exists = await User.findOne({email})
+        if(exists){
+            return res.status(400).json({error: "Email already in use"})
+        }
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(password, salt);
+
+        const user = await User.create({username, email, password: hash})
+
+        res.status(200).json({message: "User created successfully", email})
+    
+    }catch(err){
+        res.status(500).json({error: err.message})
+    }
+}
+
+async function findUserByEmail(req, res) {
+    
+    const { email } = req.body
+
+    try{
+        const user = await User.findOne({email})
+        res.status(200).json({username: user.username, email})
+    }catch(err){
+        res.status(500).json({error: "Email does not exist"})
+    }
+}
+
+async function deleteUser(req, res) {
+    const { email } = req.body;
+
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ message: "User does not exist" });
+        }
+
+        await User.deleteOne({ email });
+        return res.status(200).json({ message: "User deleted successfully" });
+    } catch (err) {
+        return res.status(500).json({ error: "An error occurred while deleting the user" });
+    }
+}
+
+async function updateUser(req, res) {
+ 
+    const { currentEmail, newEmail, newPassword, ...updates } = req.body;
+
+    try {
+
+        if (newEmail) {
+            const emailExists = await User.findOne({ email: newEmail });
+            if (!validator.isEmail(newEmail)) {
+                return res.status(400).json({ error: 'Email is not valid' });
+            }
+            if (emailExists) {
+                return res.status(400).json({ message: "New email already in use" });
+            }
+
+            updates.email = newEmail; 
+        }
+
+        if (newPassword) {
+            if (!validator.isStrongPassword(newPassword)) {
+                return res.status(400).json({ error: 'Password not strong enough' });
+            }
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash(newPassword, salt);
+            updates.password = hashedPassword; 
+        }
+
+        const updatedUser = await User.findOneAndUpdate(
+            { email: currentEmail },
+            { $set: updates },
+            { new: true }
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        return res.status(200).json({ message: "User updated successfully", user: updatedUser });
+    } catch (err) {
+        return res.status(500).json({ error: "An error occurred while updating the user" });
+    }
+}
+
+
 module.exports = {
     signup,
-    login 
+    login,
+    createUser,
+    findUserByEmail,
+    deleteUser,
+    updateUser
 }

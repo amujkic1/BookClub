@@ -5,6 +5,8 @@ import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/Protected/ProtectedRoute';
+import AdminPanel from './components/AdminPanel/AdminPanel';
+import './App.css';
 
 function App() {
   return (
@@ -19,17 +21,19 @@ function App() {
 function MainLayout() {
   const location = useLocation();
   const isLoginPage = location.pathname === '/';
+  const isAdminPage = location.pathname === '/admin';
 
   return (
-    <div>
-      {!isLoginPage && <Navbar />}
+    <>
+      {!isLoginPage && !isAdminPage && <Navbar />}
       <main>
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/admin" element={<AdminPanel/>} />
           <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         </Routes>
       </main>
-    </div>
+    </>
   );
 }
 

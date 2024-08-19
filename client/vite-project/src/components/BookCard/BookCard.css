@@ -1,0 +1,41 @@
+.card-container {
+    display: flex; /* Postavlja kartice u red (horizontalno) */
+    gap: 1rem; /* Razmak između kartica */
+    padding: 1rem; /* Razmak unutar kontejnera */
+    justify-content: center; /* Centriranje kartica unutar kontejnera */
+}
+
+.card {
+    border: 1px solid #ddd; /* Granica oko kartice */
+    border-radius: 8px; /* Zaobljeni rubovi */
+    overflow: hidden; /* Sprečava prelijevanje sadržaja preko granica kartice */
+    width: 300px; /* Širina kartice */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sjena za dojam dubine */
+    transition: transform 0.3s ease; /* Glatka animacija prilikom hovera */
+    display: flex;
+    flex-direction: column; /* Vertikalno poravnanje elemenata */
+}
+
+.card:hover {
+    transform: translateY(-5px); 
+}
+
+.card-image {
+    width: 100%; /* Slika će zauzeti cijelu širinu kartice */
+    height: 400px; /* Fiksna visina slike */
+    object-fit: cover; /* Osigurava da slika popuni okvir bez iskrivljenja */
+}
+
+.card-title {
+    font-size: 1.5rem;
+    margin: 1rem 1rem 0.5rem; /* Razmak oko naslova */
+}
+
+.card-description {
+    font-size: 1rem;
+    margin: 0 1rem 1rem; /* Razmak oko opisa */
+    color: #555; /* Boja teksta opisa */
+    flex-grow: 1; /* Omogućava opisu da zauzme sav preostali prostor u kartici */
+    display: flex;
+    align-items: center; /* Vertikalno poravnanje teksta unutar opisa */
+}

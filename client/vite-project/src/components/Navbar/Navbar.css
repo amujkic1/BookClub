@@ -21,11 +21,13 @@ body {
 }
 
 .nav ul {
-    padding: 0;
-    margin: 0;
+    padding: 20px;
+    margin: 0; 
     list-style: none;
     display: flex;
     gap: 1rem;
+    padding-right: 2rem;
+    flex-wrap: wrap; 
 }
 
 .nav a {
@@ -47,3 +49,4 @@ body {
 .content {
     padding-top: 5rem; 
 }
+
