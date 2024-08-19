@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import BookCard from '../BookCard/BookCard';
-import './Home.css'
+import './Home.css';
 
 export default function Home() {
+    const navigate = useNavigate();
+
+    const goToAdminPage = () => {
+        navigate('/admin');
+    };
 
     return (
-        <div class="content">
+        <div className="content">
             <header>
                 <h1>Welcome to ShareABook</h1>
                 <p>Your favorite book sharing platform.</p>
@@ -24,8 +29,9 @@ export default function Home() {
                 </section>
                 <br/>
                 <br/>
+                <button onClick={goToAdminPage}>Go to Admin Page</button>
             </main>
-            <BookCard/>
+            <BookCard />
             <footer>
                 <p>&copy; 2024 ShareABook. All rights reserved.</p>
             </footer>
