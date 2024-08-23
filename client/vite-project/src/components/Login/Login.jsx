@@ -6,6 +6,8 @@ import person_icon from '../Assets/person.png';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from "jwt-decode";
 
 function Login() {
     const { login } = useContext(AuthContext);
@@ -20,7 +22,8 @@ function Login() {
         event.preventDefault();
 
         fetch('https://bookclub-6dmc.onrender.com/user/signup', {
-            method: 'POST',
+        //fetch('http://localhost:3000/user/signup', {
+        method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -110,6 +113,26 @@ function Login() {
             </div>
 
             {errorMessage && <div className="error-message">{errorMessage}</div>}
+            
+            <br/>
+            
+            <GoogleLogin
+                onSuccess={(credentialResponse) => {
+                    const decodedToken = jwtDecode(credentialResponse.credential);
+                    
+                    Cookies.set('user', JSON.stringify(decodedToken), { expires: 7 });  // Expires in 7 days
+                    Cookies.set('token', credentialResponse.credential, { expires: 7 }); // Expires in 7 days
+                    
+                    console.log('User data:', decodedToken);
+
+                    navigate('/home');
+                }}
+                onError={() => {
+                    console.log('Login Failed');
+                }}
+                useOneTap
+            />
+
         </div>
     )
 }
