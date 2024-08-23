@@ -29,10 +29,6 @@ function BookCard() {
             </div>
 
         </div>
-        
-        
-
-
 
     )
 }

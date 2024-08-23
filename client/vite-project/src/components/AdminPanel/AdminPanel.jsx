@@ -1,30 +1,199 @@
+import { useState, useEffect } from 'react'
 import './AdminPanel.css'
+import update_icon from '../Assets/update.png'
+import delete_icon from '../Assets/delete.png'
 
 export default function AdminPanel() {
+
+    const [userModal, setUserModal] = useState(false)
+    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
+    const [selectedView, setSelectedView] = useState('home') 
+    const [users, setUsers] = useState([])
+
+    const toggleUserModal = () => {
+        setUserModal(!userModal)
+    }
+
+    const handleCreateUser = async (event) => {
+        fetch('https://bookclub-6dmc.onrender.com/user/user', {
+        //fetch('http://localhost:3000/user/user', {
+            method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({ username, email, password })
+            })
+            .then(async response => {
+                if(response.ok) {
+                    setErrorMessage('')
+                    setUsername('')
+                    setEmail('')
+                    setPassword('')
+                    setUserModal(false)
+                    fetchUsers()
+                }else{
+                    const errorData = await response.json();
+                    setErrorMessage(errorData.error || 'An error occurred');
+                }
+            })
+            .catch(error => {
+                setErrorMessage('Failed to create a user.');
+            })
+    }
+
+    const handleDeleteUser = async (userEmail) => {
+        fetch('https://bookclub-6dmc.onrender.com/user/user', {
+        //fetch('http://localhost:3000/user/user', {
+            method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({ email: userEmail })
+            })
+            .then(async response => {
+                if(response.ok) {
+                    fetchUsers()
+                }else{
+                    const errorData = await response.json();
+                }
+            })
+            .catch(error => {
+                setErrorMessage('Failed to delete a user.');
+            })
+    }
+
+    const fetchUsers = async (event) => {
+        fetch('https://bookclub-6dmc.onrender.com/user/users', {
+        //fetch('http://localhost:3000/user/users', {
+            method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+            })
+            .then(async response => {
+                const data = await response.json()
+                setUsers(data)
+            })
+            .catch(error => {
+                setErrorMessage("Failed to retreive users.")
+            })
+    }
+
+    useEffect(() => {
+        fetchUsers();
+    }, []);
+
     return(
-        
+        <>
         <div className="body-container">
+            
             <div className="aheader">
                 <h1>Admin Panel</h1>
             </div>
+            
             <div className="acontainer">
                 <div className="sidebar">
                     <h2>Dashboard</h2>
-                    <a href="#">Home</a>
-                    <a href="#">Users</a>
-                    <a href="#">Settings</a>
-                    <a href="#">Reports</a>
-                    <a href="#">Logout</a>
+                    <a href="#" onClick={() => setSelectedView('home')}>Home</a>
+                    <a href="#" onClick={() => setSelectedView('users')}>Users</a>
+                    <a href="#" onClick={() => setSelectedView('settings')}>Settings</a>
+                    <a href="#" onClick={() => setSelectedView('reports')}>Reports</a>
+                    <a href="#" onClick={() => setSelectedView('logout')}>Logout</a>
                 </div>
                 <div className="main-content">
-                    <h1>Welcome, Admin</h1>
-                    <div className="button-container">
-                        <button className="button1">Create a User</button>
-                        <button className="button2">Add a Book</button>
-                        <button className="button3">Organize an Event</button>
-                    </div>
+                    {selectedView === 'home' && (
+                        <div>
+                            <h1>Welcome, Admin</h1>
+                            <div className="button-container">
+                                <button className="button1" onClick={toggleUserModal}>Create a User</button>
+                                <button className="button2">Add a Book</button>
+                                <button className="button3">Organize an Event</button>
+                            </div>
+                        </div>
+                    )}
+                    
+                    {selectedView === 'users' && (
+                        <div className='listContainer'>
+                            <h1>Users Management</h1>
+                            <ul className='usersList'>
+                                {users.map(user => (
+                                    <li className='usersListItem' key={user._id}>
+                                        {user.username} - {user.email}
+                                        <img src={delete_icon} onClick={() => handleDeleteUser(user.email) }></img>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+                    
+                    {selectedView === 'settings' && (
+                        <div>
+                            <h1>Settings</h1>
+                            <p>Settings options will be displayed here.</p>
+                        </div>
+                    )}
+                    
+                    {selectedView === 'reports' && (
+                        <div>
+                            <h1>Reports</h1>
+                            <p>Reports will be displayed here.</p>
+                        </div>
+                    )}
+                    
+                    {selectedView === 'logout' && (
+                        <div>
+                            <h1>Logout</h1>
+                            <p>You have logged out.</p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
+        
+        {userModal && (
+            <div id="myModal" className="modal">
+
+            <div className="modal-content">
+              <span className="close" onClick={toggleUserModal}>&times;</span>
+              <div className='header'>
+                <h2>Create a new user</h2>
+              </div>                
+              <div className='inputs'>
+                <div className="input">
+                        <input type='username' 
+                            onChange={(e) => setUsername(e.target.value)}
+                            value={username}
+                            placeholder='username'>
+                        </input>
+                </div>
+                <div className="input">
+                        <input type='email' 
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
+                            placeholder='email'>
+                        </input>
+                </div>
+                <div className="input">
+                        <input type='password' 
+                            onChange={(e) => setPassword(e.target.value)}
+                            value={password}
+                            placeholder='password'>
+                        </input>
+                </div>
+              </div>
+               <div className='submit-container'>
+                    <div className="usubmit" onClick={handleCreateUser}>Create</div>
+               </div>
+               {errorMessage && <div className="error-message">{errorMessage}</div>}
+            </div>          
+          </div>            
+        )}
+        </>
     )
 }

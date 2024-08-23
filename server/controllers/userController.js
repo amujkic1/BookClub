@@ -41,6 +41,16 @@ async function signup(req, res) {
     }
 }
 
+async function getAllUsers(req, res) {
+    try{
+        const users = await User.find()
+        console.log(users)
+        res.status(200).json(users)
+    }catch(err){
+        res.status(400).json({error: err.message})
+    }
+}
+
 async function createUser(req, res) {
     
     const {username, email, password} = req.body
@@ -150,5 +160,6 @@ module.exports = {
     createUser,
     findUserByEmail,
     deleteUser,
-    updateUser
+    updateUser,
+    getAllUsers
 }
