@@ -33,8 +33,10 @@ function Login() {
         .then(async response => {
             console.log('Response:', response);
             if(response.ok) {
-                const {email,token} = await response.json()
+                const { username, email, token } = await response.json();
                 login(token)
+                Cookies.set('email', email, { expires: 7 });
+                Cookies.set('uname', username, { expires: 7 });
                 setErrorMessage('')
                 navigate('/home')
             }else{
@@ -62,9 +64,11 @@ function Login() {
         })
           .then(async (response) => {
             if (response.ok) {
-              const { token } = await response.json();
+              const { username, email, token } = await response.json();
               login(token);
               setErrorMessage('');
+              Cookies.set('email', email, { expires: 7 });
+              Cookies.set('uname', username, { expires: 7 });
               navigate('/home')
             } else {
               const errorData = await response.json();
