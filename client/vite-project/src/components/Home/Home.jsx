@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BookCard from '../BookCard/BookCard';
+import Cookies from 'js-cookie';
 import './Home.css';
 
 export default function Home() {
     const navigate = useNavigate();
+    const [username, setUsername] = useState('');
+
+    useEffect(() => {
+        const storedUsername = Cookies.get('uname');
+        if(storedUsername){
+            setUsername(storedUsername);
+        }
+    }, []);
 
     const goToAdminPage = () => {
         navigate('/admin');
@@ -13,7 +22,7 @@ export default function Home() {
     return (
         <div className="content">
             <header>
-                <h1>Welcome to ShareABook</h1>
+                <h1>Welcome, {username}</h1>
                 <p>Your favorite book sharing platform.</p>
             </header>
             <main>
