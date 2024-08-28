@@ -1,5 +1,3 @@
-// app.js
-
 const express = require('express');
 const mongoose = require('./data/database'); 
 const cors = require('cors');
@@ -10,7 +8,7 @@ const bookRouter = require('./routes/books');
 const eventRouter = require('./routes/events');
 const userRouter = require('./routes/users');
 
-// Middleware to parse JSON bodies
+
 app.use(express.json());
 //app.use(cors());
 
@@ -21,7 +19,6 @@ app.use(
   })
 );
 
-// Basic route
 app.get('/', (req, res) => {
   res.send('Welcome to the Book Club App!');
 });
@@ -30,7 +27,6 @@ app.use('/', bookRouter);
 app.use('/', eventRouter);
 app.use('/user', userRouter);
 
-// Start the server
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
