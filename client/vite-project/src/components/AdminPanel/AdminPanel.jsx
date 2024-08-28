@@ -6,15 +6,24 @@ import delete_icon from '../Assets/delete.png'
 export default function AdminPanel() {
 
     const [userModal, setUserModal] = useState(false)
+    const [eventModal, setEventModal] = useState(false)
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [eventName, setEventName] = useState('')
+    const [eventDate, setEventDate] = useState('')
+    const [eventTime, setEventTime] = useState('')
+    const [eventLocation, setEventLocation] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
     const [selectedView, setSelectedView] = useState('home') 
     const [users, setUsers] = useState([])
 
     const toggleUserModal = () => {
         setUserModal(!userModal)
+    }
+
+    const toggleEventModal = () => {
+        setEventModal(!eventModal)
     }
 
     const handleCreateUser = async (event) => {
@@ -43,6 +52,10 @@ export default function AdminPanel() {
             .catch(error => {
                 setErrorMessage('Failed to create a user.');
             })
+    }
+
+    const handleCreateEvent = () => {
+        console.log('event')
     }
 
     const handleDeleteUser = async (userEmail) => {
@@ -113,7 +126,7 @@ export default function AdminPanel() {
                             <div className="button-container">
                                 <button className="button1" onClick={toggleUserModal}>Create a User</button>
                                 <button className="button2">Add a Book</button>
-                                <button className="button3">Organize an Event</button>
+                                <button className="button3" onClick={toggleEventModal}>Organize an Event</button>
                             </div>
                         </div>
                     )}
@@ -194,6 +207,53 @@ export default function AdminPanel() {
             </div>          
           </div>            
         )}
+
+        {eventModal && (
+            <div id="myModal" className="modal">
+
+            <div className="modal-content">
+              <span className="close" onClick={toggleEventModal}>&times;</span>
+              <div className='header'>
+                <h2>Create a new event</h2>
+              </div>                
+              <div className='inputs'>
+                <div className="input">
+                        <input type='eventName' 
+                            onChange={(e) => setEventName(e.target.value)}
+                            value={eventName}
+                            placeholder='Event name'>
+                        </input>
+                </div>
+                <div className="input">
+                        <input type='date' 
+                            onChange={(e) => setEventDate(e.target.value)}
+                            value={eventDate}
+                            placeholder='date'>
+                        </input>
+                </div>
+                <div className="input">
+                        <input type='time' 
+                            onChange={(e) => setEventTime(e.target.value)}
+                            value={eventTime}
+                            placeholder='time'>
+                        </input>
+                </div>
+                <div className="input">
+                        <input type='location' 
+                            onChange={(e) => setEventLocation(e.target.value)}
+                            value={eventLocation}
+                            placeholder='location'>
+                        </input>
+                </div>
+              </div>
+               <div className='submit-container'>
+                    <div className="usubmit" onClick={handleCreateEvent}>Create</div>
+               </div>
+               {errorMessage && <div className="error-message">{errorMessage}</div>}
+            </div>          
+          </div>            
+        )}
+
         </>
     )
 }

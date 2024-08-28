@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-//const uri = 'mongodb+srv://amujkic1:bookclub123@bookclubcluster.q2wztrm.mongodb.net/?retryWrites=true&w=majority&appName=BookClubCluster';
+const uri = 'mongodb+srv://amujkic1:bookclub123@bookclubcluster.q2wztrm.mongodb.net/?retryWrites=true&w=majority&appName=BookClubCluster';
 
 async function connectToDatabase()
 {
