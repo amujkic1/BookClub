@@ -6,6 +6,7 @@ import Login from './components/Login/Login';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/Protected/ProtectedRoute';
 import AdminPanel from './components/AdminPanel/AdminPanel';
+import Chat from './components/Chat/Chat'
 import './App.css';
 
 function App() {
@@ -31,6 +32,7 @@ function MainLayout() {
           <Route path="/" element={<Login />} />
           <Route path="/admin" element={<AdminPanel/>} />
           <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+          <Route path='/chat' element={<Chat></Chat>} />
         </Routes>
       </main>
     </>

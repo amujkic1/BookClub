@@ -27,8 +27,8 @@ export default function AdminPanel() {
     }
 
     const handleCreateUser = async (event) => {
-        fetch('https://bookclub-6dmc.onrender.com/user/user', {
-        //fetch('http://localhost:3000/user/user', {
+        //fetch('https://bookclub-6dmc.onrender.com/user/user', {
+        fetch('http://localhost:3000/user/user', {
             method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -59,8 +59,8 @@ export default function AdminPanel() {
     }
 
     const handleDeleteUser = async (userEmail) => {
-        fetch('https://bookclub-6dmc.onrender.com/user/user', {
-        //fetch('http://localhost:3000/user/user', {
+        //fetch('https://bookclub-6dmc.onrender.com/user/user', {
+        fetch('http://localhost:3000/user/user', {
             method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
@@ -81,8 +81,8 @@ export default function AdminPanel() {
     }
 
     const fetchUsers = async (event) => {
-        fetch('https://bookclub-6dmc.onrender.com/user/users', {
-        //fetch('http://localhost:3000/user/users', {
+        //fetch('https://bookclub-6dmc.onrender.com/user/users', {
+        fetch('http://localhost:3000/user/users', {
             method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
