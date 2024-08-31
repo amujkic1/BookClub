@@ -1,47 +1,62 @@
 import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
+import Cookies from 'js-cookie';
+import './Chat.css'
 
 const socket = io.connect("http://localhost:3000"); 
 
 const ChatRoom = () => {
+  const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    // Listen for incoming messages
+    const storedUsername = Cookies.get('uname');
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+
     socket.on("chatMessage", (msg) => {
       setMessages((prevMessages) => [...prevMessages, msg]);
     });
 
-    // Clean up when component unmounts
     return () => {
       socket.off("chatMessage");
     };
   }, []);
 
+  useEffect(() => {
+    console.log('username', username); 
+  }, [username]);
+
   const sendMessage = (e) => {
     e.preventDefault();
     if (message.trim()) {
-      socket.emit("chatMessage", message); // Send message to the server
-      setMessage(""); // Clear the input
+      socket.emit("chatMessage", { username, message });
+      setMessage(""); 
     }
   };
 
   return (
-    <div className="chat-room">
-      <div className="messages">
+    <div className="chat-window">
+      <div className="chat-header">
+        <p>Live Chat</p>
+      </div>
+      <div className="chat-body">
         {messages.map((msg, index) => (
-          <div key={index}>{msg}</div>
+          <div key={index}>
+            <strong>{msg.username}:</strong> {msg.message}
+          </div>
         ))}
       </div>
-      <form onSubmit={sendMessage}>
+      <form className="chat-footer" onSubmit={sendMessage}>
         <input
           type="text"
           value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Type a message..."
+          placeholder="Hey..."
+          onChange={(event) => setMessage(event.target.value)}
         />
-        <button type="submit">Send</button>
+        <button type="submit">&#9658;</button>
       </form>
     </div>
   );
