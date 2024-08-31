@@ -124,8 +124,8 @@ function Login() {
                 onSuccess={(credentialResponse) => {
                     const decodedToken = jwtDecode(credentialResponse.credential);
                     
-                    Cookies.set('user', JSON.stringify(decodedToken), { expires: 7 });  // Expires in 7 days
-                    Cookies.set('token', credentialResponse.credential, { expires: 7 }); // Expires in 7 days
+                    Cookies.set('user', JSON.stringify(decodedToken), { expires: 7 });  
+                    Cookies.set('token', credentialResponse.credential, { expires: 7 }); 
                     
                     console.log('User data:', decodedToken);
 
