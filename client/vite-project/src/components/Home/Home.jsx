@@ -19,6 +19,10 @@ export default function Home() {
         navigate('/admin');
     };
 
+    const goToChatPage = () => {
+        navigate('/chat');
+    };
+
     return (
         <div className="content">
             <header>
@@ -39,6 +43,7 @@ export default function Home() {
                 <br/>
                 <br/>
                 <button onClick={goToAdminPage}>Go to Admin Page</button>
+                <button onClick={goToChatPage}>Go to Chat</button>
             </main>
             <BookCard />
             <footer>
