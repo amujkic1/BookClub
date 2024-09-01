@@ -7,5 +7,5 @@ This application is designed for book lovers to share and discuss their favorite
 - Book Sharing: Add, view, and manage books in the book club
 - Book Reviews: Write and read reviews for books shared in the club
 - Event Creation: Create and manage book club events
-- Chat Room: Real-time book discussions
+- Live Chat Room: Real-time book discussions
 - Admin Panel: Admins can oversee user activity, manage books, handle user requests, and manage events
