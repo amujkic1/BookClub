@@ -23,12 +23,6 @@ const bookSchema = new Schema({
     summary: {
         type: String,
     },
-    language: {
-        type: String,
-    },
-    pages: {
-        type: Number,
-    },
     coverImageUrl: {
         type: String,
     }
