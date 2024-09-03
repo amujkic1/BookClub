@@ -7,6 +7,7 @@ export default function AdminPanel() {
 
     const [userModal, setUserModal] = useState(false)
     const [eventModal, setEventModal] = useState(false)
+    const [bookModal, setBookModal] = useState(false)
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -14,6 +15,13 @@ export default function AdminPanel() {
     const [eventDate, setEventDate] = useState('')
     const [eventTime, setEventTime] = useState('')
     const [eventLocation, setEventLocation] = useState('')
+    const [title, setTitle] = useState('')
+    const [author, setAuthor] = useState('')
+    const [publishDate, setPublishDate] = useState('')
+    const [isbn, setIsbn] = useState('')
+    const [genre, setGenre] = useState('')
+    const [summary, setSummary] = useState('')
+    const [coverImageUrl, setCoverImageUrl] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
     const [selectedView, setSelectedView] = useState('home') 
     const [users, setUsers] = useState([])
@@ -24,6 +32,10 @@ export default function AdminPanel() {
 
     const toggleEventModal = () => {
         setEventModal(!eventModal)
+    }
+
+    const toggleBookModal = () => {
+        setBookModal(!bookModal)
     }
 
     const handleCreateUser = async (event) => {
@@ -56,6 +68,10 @@ export default function AdminPanel() {
 
     const handleCreateEvent = () => {
         console.log('event')
+    }
+
+    const handleCreateBook = () => {
+        console.log('book')
     }
 
     const handleDeleteUser = async (userEmail) => {
@@ -125,7 +141,7 @@ export default function AdminPanel() {
                             <h1>Welcome, Admin</h1>
                             <div className="button-container">
                                 <button className="button1" onClick={toggleUserModal}>Create a User</button>
-                                <button className="button2">Add a Book</button>
+                                <button className="button2" onClick={toggleBookModal}>Add a Book</button>
                                 <button className="button3" onClick={toggleEventModal}>Organize an Event</button>
                             </div>
                         </div>
@@ -253,6 +269,73 @@ export default function AdminPanel() {
             </div>          
           </div>            
         )}
+
+        {bookModal && (
+        <div id="myModal" className="modal">
+            <div className="modal-content">
+            <span className="close" onClick={toggleBookModal}>&times;</span>
+            <div className='header'>
+                <h2>Create a new book</h2>
+            </div>                
+            <div className='inputs'>
+                <div className="input">
+                <input type='text' 
+                    onChange={(e) => setTitle(e.target.value)}
+                    value={title}
+                    placeholder='Title'>
+                </input>
+                </div>
+                <div className="input">
+                <input type='text' 
+                    onChange={(e) => setAuthor(e.target.value)}
+                    value={author}
+                    placeholder='Author'>
+                </input>
+                </div>
+                <div className="input">
+                <input type='date' 
+                    onChange={(e) => setPublishDate(e.target.value)}
+                    value={publishDate}
+                    placeholder='Publish Date'>
+                </input>
+                </div>
+                <div className="input">
+                <input type='text' 
+                    onChange={(e) => setIsbn(e.target.value)}
+                    value={isbn}
+                    placeholder='ISBN'>
+                </input>
+                </div>
+                <div className="input">
+                <input type='text' 
+                    onChange={(e) => setGenre(e.target.value)}
+                    value={genre}
+                    placeholder='Genre'>
+                </input>
+                </div>
+                <div className="input">
+                <textarea 
+                    onChange={(e) => setSummary(e.target.value)}
+                    value={summary}
+                    placeholder='Summary'>
+                </textarea>
+                </div>
+                <div className="input">
+                <input type='url' 
+                    onChange={(e) => setCoverImageUrl(e.target.value)}
+                    value={coverImageUrl}
+                    placeholder='Cover Image URL'>
+                </input>
+                </div>
+            </div>
+            <div className='submit-container'>
+                <div className="usubmit" onClick={handleCreateBook}>Create</div>
+            </div>
+            {errorMessage && <div className="error-message">{errorMessage}</div>}
+            </div>          
+        </div>            
+        )}
+        
 
         </>
     )
