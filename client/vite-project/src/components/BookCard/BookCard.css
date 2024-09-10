@@ -1,19 +1,22 @@
 .card-container {
-    display: flex; /* Postavlja kartice u red (horizontalno) */
-    gap: 1rem; /* Razmak između kartica */
-    padding: 1rem; /* Razmak unutar kontejnera */
-    justify-content: center; /* Centriranje kartica unutar kontejnera */
+    display: flex; 
+    gap: 1rem; 
+    overflow-x: auto;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    padding: 1rem; 
+    justify-content: center; 
 }
 
 .card {
-    border: 1px solid #ddd; /* Granica oko kartice */
-    border-radius: 8px; /* Zaobljeni rubovi */
-    overflow: hidden; /* Sprečava prelijevanje sadržaja preko granica kartice */
-    width: 300px; /* Širina kartice */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sjena za dojam dubine */
-    transition: transform 0.3s ease; /* Glatka animacija prilikom hovera */
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    overflow: hidden; 
+    width: 300px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s ease; 
     display: flex;
-    flex-direction: column; /* Vertikalno poravnanje elemenata */
+    flex-direction: column; 
 }
 
 .card:hover {
@@ -21,21 +24,41 @@
 }
 
 .card-image {
-    width: 100%; /* Slika će zauzeti cijelu širinu kartice */
-    height: 400px; /* Fiksna visina slike */
-    object-fit: cover; /* Osigurava da slika popuni okvir bez iskrivljenja */
+    width: 100%; 
+    height: 400px; 
+    object-fit: cover;
 }
 
 .card-title {
     font-size: 1.5rem;
-    margin: 1rem 1rem 0.5rem; /* Razmak oko naslova */
+    margin: 1rem 1rem 0.5rem; 
 }
 
-.card-description {
+.card-author {
     font-size: 1rem;
-    margin: 0 1rem 1rem; /* Razmak oko opisa */
-    color: #555; /* Boja teksta opisa */
-    flex-grow: 1; /* Omogućava opisu da zauzme sav preostali prostor u kartici */
+    margin: 0 1rem 1rem; 
+    color: #555; 
+    flex-grow: 1; 
     display: flex;
-    align-items: center; /* Vertikalno poravnanje teksta unutar opisa */
+    align-items: center; 
+}
+
+.scroll-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #7a2f6b;
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.scroll-button-left {
+    left: 0;
+}
+
+.scroll-button-right {
+    right: 0;
 }
