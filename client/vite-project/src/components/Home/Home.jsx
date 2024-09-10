@@ -7,12 +7,14 @@ import './Home.css';
 export default function Home() {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
+    const [bookDetails, setBookDetails] = useState([]);
 
     useEffect(() => {
         const storedUsername = Cookies.get('uname');
         if(storedUsername){
             setUsername(storedUsername);
         }
+        fetchBooks();
     }, []);
 
     const goToAdminPage = () => {
@@ -22,6 +24,24 @@ export default function Home() {
     const goToChatPage = () => {
         navigate('/chat');
     };
+
+    const fetchBooks = async (event) => {
+        fetch('https://bookclub-6dmc.onrender.com/books', {
+        //fetch('http://localhost:3000/books', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        }).then(async response => {
+            const data = await response.json()
+            setBookDetails(data.books)
+            console.log(bookDetails)
+        }).catch(error => {
+            setErrorMessage("Failed to retreive books.")
+        })
+    }
+
 
     return (
         <div className="content">
@@ -45,7 +65,16 @@ export default function Home() {
                 <button onClick={goToAdminPage}>Go to Admin Page</button>
                 <button onClick={goToChatPage}>Go to Chat</button>
             </main>
-            <BookCard />
+            <div className="card-container">
+                {bookDetails.map((book) => (
+                    <BookCard
+                    key={book._id}
+                    title={book.title}
+                    author={book.author}
+                    image={book.coverImageUrl}
+                    />
+                ))}
+            </div>
             <footer>
                 <p>&copy; 2024 ShareABook. All rights reserved.</p>
             </footer>

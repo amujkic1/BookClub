@@ -100,10 +100,10 @@ export default function AdminPanel() {
         fetch('https://bookclub-6dmc.onrender.com/user/users', {
         //fetch('http://localhost:3000/user/users', {
             method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                credentials: 'include'
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
             })
             .then(async response => {
                 const data = await response.json()
