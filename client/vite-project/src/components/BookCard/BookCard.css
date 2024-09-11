@@ -57,7 +57,22 @@
     margin-top: 10px;
 }
 .controls button {
-    margin: 0 5px;
-    padding: 10px;
-    font-size: 16px;
+    background-color:#7a2f6b;
+	border-radius:42px;
+	border:1px solid #7a2f6b;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:16px 20px;
+	text-decoration:none;
+	margin-left: 10px;
+}
+.controls button:hover {
+	background-color: #631561;
+}
+.controls button:active {
+	position:relative;
+	top:1px;
 }

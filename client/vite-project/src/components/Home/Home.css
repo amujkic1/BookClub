@@ -1,5 +1,5 @@
 .content {
-    padding-top: 600px;
+    padding-top: 800px;
 }
 .home-header {
     background-color: #7a2f6b; 
@@ -26,14 +26,14 @@
     font-weight: 300;
 }
 
-.about-section, .events-section {
+.about-section, .events-section, .recommendations-section {
     max-width: 1000px;
     margin: 2rem auto;
     padding: 1rem 1.5rem;
     text-align: center;
 }
 
-.about-section h2, .events-section h2 {
+.about-section h2, .events-section h2, .recommendations-section h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
     color: #7a2f6b;

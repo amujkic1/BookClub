@@ -62,6 +62,10 @@ export default function Home() {
                 <p>Your favorite book-sharing platform.</p>
             </div>
         </header>
+        <div className="button-group">
+                <button onClick={goToAdminPage}>Go to Admin Page</button>
+                <button onClick={goToChatPage}>Go to Chat</button>
+            </div>
         <main>
             <section className="about-section">
                 <h2>About Us</h2>
@@ -71,11 +75,10 @@ export default function Home() {
                 <h2>Upcoming Events</h2>
                 <p>Join our upcoming book reading events and meet fellow book enthusiasts.</p>
             </section>
-            <div className="button-group">
-                <button onClick={goToAdminPage}>Go to Admin Page</button>
-                <button onClick={goToChatPage}>Go to Chat</button>
-            </div>
         </main>
+            <section className="recommendations-section">
+                <h2>Our recommendations</h2>
+            </section>
             <div id="scrollWrapper" className="card-container">
                 {bookDetails.map((book) => (
                     <BookCard
@@ -87,8 +90,8 @@ export default function Home() {
                 ))}
             </div>
             <div className='controls'>
-                    <button onClick={scrollLeftt}>Scroll Left</button>
-                    <button onClick={scrollRight}>Scroll Right</button>
+                    <button onClick={scrollLeftt}>&lt;</button>
+                    <button onClick={scrollRight}>&gt;</button>
             </div>
             <footer>
                 <p>&copy; 2024 ShareABook. All rights reserved.</p>
