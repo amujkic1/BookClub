@@ -26,8 +26,8 @@ export default function Home() {
     };
 
     const fetchBooks = async (event) => {
-        fetch('https://bookclub-6dmc.onrender.com/books', {
-        //fetch('http://localhost:3000/books', {
+        //fetch('https://bookclub-6dmc.onrender.com/books', {
+        fetch('http://localhost:3000/books', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -42,6 +42,17 @@ export default function Home() {
         })
     }
 
+    function scrollLeftt() {
+        const container = document.getElementById('scrollWrapper');
+        container.scrollBy({ left: -110, behavior: 'smooth' });
+        console.log('left');
+    }
+
+    function scrollRight() {
+        const container = document.getElementById('scrollWrapper');
+        container.scrollBy({ left: 110, behavior: 'smooth' });
+        console.log('right');
+    }
 
     return (
         <div className="content">
@@ -65,7 +76,7 @@ export default function Home() {
                 <button onClick={goToAdminPage}>Go to Admin Page</button>
                 <button onClick={goToChatPage}>Go to Chat</button>
             </main>
-            <div className="card-container">
+            <div id="scrollWrapper" className="card-container">
                 {bookDetails.map((book) => (
                     <BookCard
                     key={book._id}
@@ -74,6 +85,10 @@ export default function Home() {
                     image={book.coverImageUrl}
                     />
                 ))}
+            </div>
+            <div className='controls'>
+                    <button onClick={scrollLeftt}>Scroll Left</button>
+                    <button onClick={scrollRight}>Scroll Right</button>
             </div>
             <footer>
                 <p>&copy; 2024 ShareABook. All rights reserved.</p>
