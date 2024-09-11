@@ -2,7 +2,7 @@
     padding-top: 600px;
 }
 .home-header {
-    background-color: #7a2f6b; /* Matches your theme */
+    background-color: #7a2f6b; 
     color: #fff;
     padding: 2rem 1.5rem;
     text-align: center;
@@ -26,7 +26,6 @@
     font-weight: 300;
 }
 
-/* Section Styles */
 .about-section, .events-section {
     max-width: 1000px;
     margin: 2rem auto;
