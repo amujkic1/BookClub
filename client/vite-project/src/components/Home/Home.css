@@ -1,3 +1,46 @@
 .content {
-    padding-top: 400px;
+    padding-top: 800px;
+}
+.home-header {
+    background-color: #7a2f6b; 
+    color: #fff;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border-bottom: 4px solid #58214c;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.home-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.home-header p {
+    font-size: 1.2rem;
+    margin: 0;
+    font-weight: 300;
+}
+
+.about-section, .events-section, .recommendations-section {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 1rem 1.5rem;
+    text-align: center;
+}
+
+.about-section h2, .events-section h2, .recommendations-section h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #7a2f6b;
+}
+
+.about-section p, .events-section p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #555;
 }

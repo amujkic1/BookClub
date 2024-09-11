@@ -42,30 +42,44 @@ export default function Home() {
         })
     }
 
+    function scrollLeftt() {
+        const container = document.getElementById('scrollWrapper');
+        container.scrollBy({ left: -110, behavior: 'smooth' });
+        console.log('left');
+    }
+
+    function scrollRight() {
+        const container = document.getElementById('scrollWrapper');
+        container.scrollBy({ left: 110, behavior: 'smooth' });
+        console.log('right');
+    }
 
     return (
         <div className="content">
-            <header>
+        <header className="home-header">
+            <div className="header-content">
                 <h1>Welcome, {username}</h1>
-                <p>Your favorite book sharing platform.</p>
-            </header>
-            <main>
-                <section>
-                    <h2>About Us</h2>
-                    <p>We are a community of book lovers who share and discover new books together.</p>
-                </section>
-                <br/>
-                <br/>
-                <section>
-                    <h2>Upcoming Events</h2>
-                    <p>Join our upcoming book reading events and meet fellow book enthusiasts.</p>
-                </section>
-                <br/>
-                <br/>
+                <p>Your favorite book-sharing platform.</p>
+            </div>
+        </header>
+        <div className="button-group">
                 <button onClick={goToAdminPage}>Go to Admin Page</button>
                 <button onClick={goToChatPage}>Go to Chat</button>
-            </main>
-            <div className="card-container">
+            </div>
+        <main>
+            <section className="about-section">
+                <h2>About Us</h2>
+                <p>We are a community of book lovers who share and discover new books together.</p>
+            </section>
+            <section className="events-section">
+                <h2>Upcoming Events</h2>
+                <p>Join our upcoming book reading events and meet fellow book enthusiasts.</p>
+            </section>
+        </main>
+            <section className="recommendations-section">
+                <h2>Our recommendations</h2>
+            </section>
+            <div id="scrollWrapper" className="card-container">
                 {bookDetails.map((book) => (
                     <BookCard
                     key={book._id}
@@ -74,6 +88,10 @@ export default function Home() {
                     image={book.coverImageUrl}
                     />
                 ))}
+            </div>
+            <div className='controls'>
+                    <button onClick={scrollLeftt}>&lt;</button>
+                    <button onClick={scrollRight}>&gt;</button>
             </div>
             <footer>
                 <p>&copy; 2024 ShareABook. All rights reserved.</p>
