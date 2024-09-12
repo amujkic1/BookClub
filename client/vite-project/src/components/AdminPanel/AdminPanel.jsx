@@ -67,11 +67,50 @@ export default function AdminPanel() {
     }
 
     const handleCreateEvent = () => {
-        console.log('event')
+        //fetch('http://localhost:3000/event', {
+        fetch('https://bookclub-6dmc.onrender.com/event', {
+            method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({ name: eventName, date: eventDate, time: eventTime, location: eventLocation })
+            })
+            .then(async response => {
+                if(response.ok) {
+                    setEventModal(false)
+                }else{
+                    const errorData = await response.json();
+                    setErrorMessage(errorData.error || 'An error occurred');
+                }
+            })
+            .catch(error => {
+                setErrorMessage('Failed to create an event.');
+            })
+
     }
 
     const handleCreateBook = () => {
-        console.log('book')
+        //fetch('http://localhost:3000/book', {
+        fetch('https://bookclub-6dmc.onrender.com/book', {
+            method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({ title, author, publishDate, isbn, genre, summary, coverImageUrl })
+            })
+            .then(async response => {
+                if(response.ok) {
+                    setBookModal(false)
+                }else{
+                    const errorData = await response.json();
+                    setErrorMessage(errorData.error || 'An error occurred');
+                }
+            })
+            .catch(error => {
+                setErrorMessage('Failed to create a book.');
+            })
     }
 
     const handleDeleteUser = async (userEmail) => {

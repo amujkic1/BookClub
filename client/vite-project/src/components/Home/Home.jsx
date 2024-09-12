@@ -17,10 +17,6 @@ export default function Home() {
         fetchBooks();
     }, []);
 
-    const goToAdminPage = () => {
-        navigate('/admin');
-    };
-
     const goToChatPage = () => {
         navigate('/chat');
     };
@@ -59,17 +55,16 @@ export default function Home() {
         <header className="home-header">
             <div className="header-content">
                 <h1>Welcome, {username}</h1>
-                <p>Your favorite book-sharing platform.</p>
+                <p>to your favorite book-sharing platform.</p>
             </div>
         </header>
         <div className="button-group">
-                <button onClick={goToAdminPage}>Go to Admin Page</button>
                 <button onClick={goToChatPage}>Go to Chat</button>
             </div>
         <main>
             <section className="about-section">
                 <h2>About Us</h2>
-                <p>We are a community of book lovers who share and discover new books together.</p>
+                <p>ShareABook is your one-stop platform for discovering, sharing, and discussing books. Whether you’re an avid reader or just starting your reading journey, we offer a space where book lovers can connect.</p>
             </section>
             <section className="events-section">
                 <h2>Upcoming Events</h2>
@@ -93,6 +88,8 @@ export default function Home() {
                     <button onClick={scrollLeftt}>&lt;</button>
                     <button onClick={scrollRight}>&gt;</button>
             </div>
+            <br/>
+            <br/>
             <footer>
                 <p>&copy; 2024 ShareABook. All rights reserved.</p>
             </footer>
