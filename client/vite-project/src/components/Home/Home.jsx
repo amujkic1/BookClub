@@ -22,8 +22,8 @@ export default function Home() {
     };
 
     const fetchBooks = async (event) => {
-        //fetch('https://bookclub-6dmc.onrender.com/books', {
-        fetch('http://localhost:3000/books', {
+        fetch('https://bookclub-6dmc.onrender.com/books', {
+        //fetch('http://localhost:3000/books', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
