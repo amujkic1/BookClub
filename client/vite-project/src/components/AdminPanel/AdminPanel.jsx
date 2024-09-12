@@ -67,7 +67,26 @@ export default function AdminPanel() {
     }
 
     const handleCreateEvent = () => {
-        console.log('event')
+        fetch('http://localhost:3000/event', {
+            method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({ name: eventName, date: eventDate, time: eventTime, location: eventLocation })
+            })
+            .then(async response => {
+                if(response.ok) {
+                    setEventModal(false)
+                }else{
+                    const errorData = await response.json();
+                    setErrorMessage(errorData.error || 'An error occurred');
+                }
+            })
+            .catch(error => {
+                setErrorMessage('Failed to create an event.');
+            })
+
     }
 
     const handleCreateBook = () => {
@@ -88,7 +107,7 @@ export default function AdminPanel() {
                 }
             })
             .catch(error => {
-                setErrorMessage('Failed to create a user.');
+                setErrorMessage('Failed to create a book.');
             })
     }
 
