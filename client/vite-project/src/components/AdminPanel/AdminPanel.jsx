@@ -39,8 +39,8 @@ export default function AdminPanel() {
     }
 
     const handleCreateUser = async (event) => {
-        fetch('https://bookclub-6dmc.onrender.com/user/user', {
-        //fetch('http://localhost:3000/user/user', {
+        //fetch('https://bookclub-6dmc.onrender.com/user/user', {
+        fetch('http://localhost:3000/user/user', {
             method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -71,12 +71,30 @@ export default function AdminPanel() {
     }
 
     const handleCreateBook = () => {
-        console.log('book')
+        fetch('http://localhost:3000/book', {
+            method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({ title, author, publishDate, isbn, genre, summary, coverImageUrl })
+            })
+            .then(async response => {
+                if(response.ok) {
+                    setBookModal(false)
+                }else{
+                    const errorData = await response.json();
+                    setErrorMessage(errorData.error || 'An error occurred');
+                }
+            })
+            .catch(error => {
+                setErrorMessage('Failed to create a user.');
+            })
     }
 
     const handleDeleteUser = async (userEmail) => {
-        fetch('https://bookclub-6dmc.onrender.com/user/user', {
-        //fetch('http://localhost:3000/user/user', {
+        //fetch('https://bookclub-6dmc.onrender.com/user/user', {
+        fetch('http://localhost:3000/user/user', {
             method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
@@ -97,8 +115,8 @@ export default function AdminPanel() {
     }
 
     const fetchUsers = async (event) => {
-        fetch('https://bookclub-6dmc.onrender.com/user/users', {
-        //fetch('http://localhost:3000/user/users', {
+        //fetch('https://bookclub-6dmc.onrender.com/user/users', {
+        fetch('http://localhost:3000/user/users', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
