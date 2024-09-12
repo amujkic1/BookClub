@@ -38,14 +38,6 @@ body {
     padding: 0.25rem 0.5rem;
 }
 
-.nav li.active {
-    background-color: #555;
-}
-
-.nav li:hover {
-    background-color: #777;
-}
-
 .content {
     padding-top: 5rem; 
 }

@@ -17,10 +17,6 @@ export default function Home() {
         fetchBooks();
     }, []);
 
-    const goToAdminPage = () => {
-        navigate('/admin');
-    };
-
     const goToChatPage = () => {
         navigate('/chat');
     };
@@ -63,7 +59,6 @@ export default function Home() {
             </div>
         </header>
         <div className="button-group">
-                <button onClick={goToAdminPage}>Go to Admin Page</button>
                 <button onClick={goToChatPage}>Go to Chat</button>
             </div>
         <main>
