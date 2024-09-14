@@ -4,12 +4,12 @@ const Schema = mongoose.Schema
 const reviewSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId, 
-        ref: 'User',  // Reference to the User model
+        ref: 'User', 
         required: true,
     },
     book: {
         type: Schema.Types.ObjectId, 
-        ref: 'Book',  // Reference to the Book model
+        ref: 'Book', 
         required: true,
     },
     rating: {

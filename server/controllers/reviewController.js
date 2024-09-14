@@ -41,6 +41,26 @@ async function createReview(req, res) {
     }
 }
 
+async function getReviewsForBook(req,res){
+    const { bookId } = req.params;
+    try{
+        const book = await Book.findById(bookId)
+        if (!book) {
+            return res.status(404).json({ message: 'Book not found' });
+        }
+        
+        const reviews = await Review.find({ book: bookId })
+        .populate('user', 'username')  // Populate the username of the user who wrote the review
+        .select('-__v')
+        
+        return res.status(200).json(reviews)
+
+    }catch(err){
+        return res.status(500).json({error: err})
+    }
+}
+
 module.exports = {
-    createReview
+    createReview,
+    getReviewsForBook
 }
