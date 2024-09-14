@@ -4,7 +4,6 @@ const User = require('../models/userModel')
 
 async function createReview(req, res) {
     const { userId, bookId, rating, review } = req.body; 
-
     try {
         const book = await Book.findById(bookId);
         const user = await User.findById(userId);
