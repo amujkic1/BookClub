@@ -9,6 +9,7 @@ const { Server } = require("socket.io");
 const bookRouter = require('./routes/books');
 const eventRouter = require('./routes/events');
 const userRouter = require('./routes/users');
+const reviewRouter = require('./routes/reviews');
 
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -37,6 +38,7 @@ app.get('/', (req, res) => {
 app.use('/', bookRouter);
 app.use('/', eventRouter);
 app.use('/user', userRouter);
+app.use('/', reviewRouter);
 
 server.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
