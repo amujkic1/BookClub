@@ -7,6 +7,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/Protected/ProtectedRoute';
 import AdminPanel from './components/AdminPanel/AdminPanel';
 import Chat from './components/Chat/Chat'
+import Reviews from './components/Reviews/Reviews';
 import './App.css';
 
 function App() {
@@ -33,6 +34,7 @@ function MainLayout() {
           <Route path="/admin" element={<AdminPanel/>} />
           <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path='/chat' element={<Chat></Chat>} />
+          <Route path='/reviews' element={<Reviews></Reviews>}></Route>
         </Routes>
       </main>
     </>
