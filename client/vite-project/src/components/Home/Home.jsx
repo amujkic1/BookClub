@@ -34,20 +34,44 @@ export default function Home() {
             setBookDetails(data.books)
             console.log(bookDetails)
         }).catch(error => {
-            setErrorMessage("Failed to retreive books.")
+            setErrorMessage("Failed to retrieve books.")
         })
     }
+
+    const fetchBookReviewsById = async (bookId) => {
+        try {
+            const response = await fetch(`https://bookclub-6dmc.onrender.com/reviews/${bookId}`, {
+            //const response = await fetch(`http://localhost:3000/reviews/${bookId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+            });
+            const data = await response.json();
+            console.log('data', data); 
+            return data; 
+        } catch (error) {
+            console.error("Failed to retrieve reviews.");
+            return null; 
+        }
+    };
+
+    const handleCardClick = async (bookId, title, author, coverImageUrl) => {
+        console.log('card clicked')
+        const reviewsData = await fetchBookReviewsById(bookId)
+        console.log('reviewsData ', reviewsData)
+        navigate(`/reviews/${bookId}`, { state: { title, author, coverImageUrl, reviews: reviewsData } });
+      };
 
     function scrollLeftt() {
         const container = document.getElementById('scrollWrapper');
         container.scrollBy({ left: -110, behavior: 'smooth' });
-        console.log('left');
     }
 
     function scrollRight() {
         const container = document.getElementById('scrollWrapper');
         container.scrollBy({ left: 110, behavior: 'smooth' });
-        console.log('right');
     }
 
     return (
@@ -76,12 +100,13 @@ export default function Home() {
             </section>
             <div id="scrollWrapper" className="card-container">
                 {bookDetails.map((book) => (
-                    <BookCard
-                    key={book._id}
-                    title={book.title}
-                    author={book.author}
-                    image={book.coverImageUrl}
-                    />
+                        <BookCard 
+                        onClick={() => handleCardClick(book._id, book.title, book.author, book.coverImageUrl)}
+                        key={book._id}
+                        title={book.title}
+                        author={book.author}
+                        image={book.coverImageUrl}
+                        />
                 ))}
             </div>
             <div className='controls'>

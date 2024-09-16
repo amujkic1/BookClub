@@ -136,8 +136,8 @@ export default function AdminPanel() {
     }
 
     const fetchUsers = async (event) => {
-        //fetch('https://bookclub-6dmc.onrender.com/user/users', {
-        fetch('http://localhost:3000/user/users', {
+        fetch('https://bookclub-6dmc.onrender.com/user/users', {
+        //fetch('http://localhost:3000/user/users', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -149,7 +149,7 @@ export default function AdminPanel() {
                 setUsers(data)
             })
             .catch(error => {
-                setErrorMessage("Failed to retreive users.")
+                setErrorMessage("Failed to retrieve users.")
             })
     }
 

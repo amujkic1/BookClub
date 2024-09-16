@@ -19,9 +19,23 @@ async function getAllBooks(req, res){
     }
 }
 
+async function getBookById(req, res){
+    const {bookId} = req.params
+    try{
+        const book = await Book.findById(bookId)
+        if (!book) {
+            return res.status(404).json({ message: 'Book not found' });
+        }
+        return res.status(200).json(book)        
+    }catch(err){
+        res.status(500).json({error: err.message})
+    }
+}
+
 
 module.exports = {
     createBook,
-    getAllBooks
+    getAllBooks,
+    getBookById
 }
 
