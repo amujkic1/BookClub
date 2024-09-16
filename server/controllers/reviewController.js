@@ -42,6 +42,7 @@ async function createReview(req, res) {
 
 async function getReviewsForBook(req,res){
     const { bookId } = req.params;
+    console.log('book id on backend ', bookId)
     try{
         const book = await Book.findById(bookId)
         if (!book) {

@@ -38,9 +38,9 @@ export default function Home() {
         })
     }
 
-    const fetchBookById = async (event) => {
+    const fetchBookById = async (bookId) => {
         //fetch('https://bookclub-6dmc.onrender.com/reviews/:bookId', {
-        fetch('http://localhost:3000/reviews/:bookId', {
+        fetch(`http://localhost:3000/reviews/${bookId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -48,7 +48,7 @@ export default function Home() {
             credentials: 'include'
         }).then(async response => {
             const data = await response.json()
-            console.log(data)
+            console.log('data', data)
         }).catch(error => {
             setErrorMessage("Failed to retreive books.")
         })
@@ -56,6 +56,7 @@ export default function Home() {
 
     const handleCardClick = (bookId) => {
         console.log('card clicked')
+        fetchBookById(bookId)
         navigate(`/reviews/${bookId}`);
       };
 
