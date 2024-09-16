@@ -39,41 +39,28 @@ export default function Home() {
     }
 
     const fetchBookReviewsById = async (bookId) => {
-        //fetch('https://bookclub-6dmc.onrender.com/reviews/${bookId}', {
-        fetch(`http://localhost:3000/reviews/${bookId}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: 'include'
-        }).then(async response => {
-            const data = await response.json()
-            console.log('data', data)
-        }).catch(error => {
-            setErrorMessage("Failed to retrieve books.")
-        })
-    }
+        try {
+            const response = await fetch(`http://localhost:3000/reviews/${bookId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+            });
+            const data = await response.json();
+            console.log('data', data); 
+            return data; 
+        } catch (error) {
+            console.error("Failed to retrieve reviews.");
+            return null; 
+        }
+    };
 
-    const fetchBookById = async (bookId) => {
-        //fetch('https://bookclub-6dmc.onrender.com/${bookId}', {
-        fetch(`http://localhost:3000/${bookId}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: 'include'
-        }).then(async response => {
-            const data = await response.json()
-            console.log('data', data)
-        }).catch(error => {
-            setErrorMessage("Failed to retrieve books.")
-        })
-    }
-
-    const handleCardClick = (bookId, title, author, coverImageUrl) => {
+    const handleCardClick = async (bookId, title, author, coverImageUrl) => {
         console.log('card clicked')
-        fetchBookReviewsById(bookId)
-        navigate(`/reviews/${bookId}`, { state: { title, author, coverImageUrl } });
+        const reviewsData = await fetchBookReviewsById(bookId)
+        console.log('reviewsData ', reviewsData)
+        navigate(`/reviews/${bookId}`, { state: { title, author, coverImageUrl, reviews: reviewsData } });
       };
 
     function scrollLeftt() {
