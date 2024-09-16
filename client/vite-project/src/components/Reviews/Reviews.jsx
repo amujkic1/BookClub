@@ -1,14 +1,17 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import './Reviews.css';
 
-export default function Reviews({imageUrl, title, rating}) {
+export default function Reviews() {
     const [username, setUsername] = useState('');
     const [comment, setComment] = useState('');
+    const location = useLocation();
+    const { title, coverImageUrl, rating } = location.state || {} 
     
     return(
             <div className="book-review-section">
             <div className="book-header">
-                <img src={imageUrl} alt="Book Cover" className="book-cover"/>
+                <img src={coverImageUrl} alt="Book Cover" className="book-cover"/>
                 <div>
                     <div className="book-title">{title}</div>
                     <div className="average-rating">

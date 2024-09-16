@@ -149,7 +149,7 @@ export default function AdminPanel() {
                 setUsers(data)
             })
             .catch(error => {
-                setErrorMessage("Failed to retreive users.")
+                setErrorMessage("Failed to retrieve users.")
             })
     }
 

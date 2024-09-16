@@ -34,12 +34,12 @@ export default function Home() {
             setBookDetails(data.books)
             console.log(bookDetails)
         }).catch(error => {
-            setErrorMessage("Failed to retreive books.")
+            setErrorMessage("Failed to retrieve books.")
         })
     }
 
-    const fetchBookById = async (bookId) => {
-        //fetch('https://bookclub-6dmc.onrender.com/reviews/:bookId', {
+    const fetchBookReviewsById = async (bookId) => {
+        //fetch('https://bookclub-6dmc.onrender.com/reviews/${bookId}', {
         fetch(`http://localhost:3000/reviews/${bookId}`, {
             method: 'GET',
             headers: {
@@ -50,14 +50,30 @@ export default function Home() {
             const data = await response.json()
             console.log('data', data)
         }).catch(error => {
-            setErrorMessage("Failed to retreive books.")
+            setErrorMessage("Failed to retrieve books.")
         })
     }
 
-    const handleCardClick = (bookId) => {
+    const fetchBookById = async (bookId) => {
+        //fetch('https://bookclub-6dmc.onrender.com/${bookId}', {
+        fetch(`http://localhost:3000/${bookId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        }).then(async response => {
+            const data = await response.json()
+            console.log('data', data)
+        }).catch(error => {
+            setErrorMessage("Failed to retrieve books.")
+        })
+    }
+
+    const handleCardClick = (bookId, title, author, coverImageUrl) => {
         console.log('card clicked')
-        fetchBookById(bookId)
-        navigate(`/reviews/${bookId}`);
+        fetchBookReviewsById(bookId)
+        navigate(`/reviews/${bookId}`, { state: { title, author, coverImageUrl } });
       };
 
     function scrollLeftt() {
@@ -97,7 +113,7 @@ export default function Home() {
             <div id="scrollWrapper" className="card-container">
                 {bookDetails.map((book) => (
                         <BookCard 
-                        onClick={() => handleCardClick(book._id)}
+                        onClick={() => handleCardClick(book._id, book.title, book.author, book.coverImageUrl)}
                         key={book._id}
                         title={book.title}
                         author={book.author}
