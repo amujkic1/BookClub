@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import './Reviews.css';
+import StarRating from '../StarRating/StarRating';
 
 export default function Reviews() {
     const [username, setUsername] = useState('');
     const [comment, setComment] = useState('');
+    const [stars, setStars] = useState(0)
     const location = useLocation();
     const { title, coverImageUrl, rating, reviews = [] } = location.state || {} 
     
@@ -23,6 +25,9 @@ export default function Reviews() {
                         Average Rating: 
                         <span className="stars">★★★★★</span>
                         <span>({rating})</span>
+                    </div>
+                    <div>
+                        <StarRating rating={stars} setRating={setStars} />
                     </div>
                 </div>
             </div>
@@ -44,8 +49,13 @@ export default function Reviews() {
             ) : (
                 <p>No reviews available for this book.</p>
             )}
-            
+
+        <br/>
+
+
+
         </div>
+        
     );
 
 }
