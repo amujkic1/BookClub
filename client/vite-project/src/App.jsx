@@ -34,7 +34,7 @@ function MainLayout() {
           <Route path="/admin" element={<AdminPanel/>} />
           <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path='/chat' element={<Chat></Chat>} />
-          <Route path='/reviews' element={<Reviews></Reviews>}></Route>
+          <Route path='/reviews/:bookId' element={<Reviews></Reviews>}></Route>
         </Routes>
       </main>
     </>
