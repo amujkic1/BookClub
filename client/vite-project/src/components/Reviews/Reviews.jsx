@@ -2,13 +2,14 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import './Reviews.css';
 import StarRating from '../StarRating/StarRating';
+import Cookies from 'js-cookie';
 
 export default function Reviews() {
     const [username, setUsername] = useState('');
     const [comment, setComment] = useState('');
     const [userRating, setUserRating] = useState(0);
     const location = useLocation();
-    const { title, coverImageUrl, rating, reviews = [] } = location.state || {} 
+    const { bookId, title, coverImageUrl, rating, reviews = [] } = location.state || {} 
     const [ratingModal, setRatingModal] = useState(false)
     
     const handleSubmit = (e) => {
@@ -28,10 +29,10 @@ export default function Reviews() {
 
     const postReview = async() => {
         const reviewData = {
-            username: "Edna",   
-            bookId: "66e08c9b6530d3e059c08a0f",
+            username: Cookies.get('uname'),   
+            bookId: bookId,
             rating: userRating,
-            review: "My favorite book",    
+            review: comment,    
         };
         try{
             //const response = await fetch("https://bookclub-6dmc.onrender.com/review", {

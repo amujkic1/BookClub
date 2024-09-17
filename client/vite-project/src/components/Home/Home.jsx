@@ -61,7 +61,7 @@ export default function Home() {
         console.log('card clicked')
         const reviewsData = await fetchBookReviewsById(bookId)
         console.log('reviewsData ', reviewsData)
-        navigate(`/reviews/${bookId}`, { state: { title, author, coverImageUrl, reviews: reviewsData } });
+        navigate(`/reviews/${bookId}`, { state: { bookId, title, author, coverImageUrl, reviews: reviewsData } });
       };
 
     function scrollLeftt() {
