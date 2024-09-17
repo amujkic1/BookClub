@@ -49,8 +49,8 @@ export default function Reviews() {
             review: comment,    
         };
         try{
-            //const response = await fetch("https://bookclub-6dmc.onrender.com/review", {
-            const response = await fetch("http://localhost:3000/review", {
+            const response = await fetch("https://bookclub-6dmc.onrender.com/review", {
+            //const response = await fetch("http://localhost:3000/review", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
