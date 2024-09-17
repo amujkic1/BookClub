@@ -3,10 +3,11 @@ const Book = require('../models/bookModel')
 const User = require('../models/userModel')
 
 async function createReview(req, res) {
-    const { userId, bookId, rating, review } = req.body; 
+    const { username, bookId, rating, review } = req.body; 
+    console.log(req.body);
     try {
         const book = await Book.findById(bookId);
-        const user = await User.findById(userId);
+        const user = await User.findOne({username});
 
         if (!book) {
             return res.status(404).json({ message: 'Book not found' });
@@ -21,7 +22,7 @@ async function createReview(req, res) {
         }
 
         const newReview = new Review({
-            user: userId,
+            user: user._id,
             book: bookId,
             rating,
             review: review || '' 
