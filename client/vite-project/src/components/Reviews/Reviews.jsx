@@ -28,7 +28,7 @@ export default function Reviews() {
 
     const postReview = async() => {
         const reviewData = {
-            userId: "66c327223f1bbf690b5394c6",   
+            username: "Edna",   
             bookId: "66e08c9b6530d3e059c08a0f",
             rating: userRating,
             review: "My favorite book",    
