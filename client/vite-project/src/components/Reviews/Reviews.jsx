@@ -17,12 +17,37 @@ export default function Reviews() {
         console.log('Comment:', comment);
         console.log('Rating:', userRating);
 
+        postReview()
         setComment('');
         setUserRating(0);
     };
 
     const toggleRatingModal = () => {
         setRatingModal(!ratingModal)
+    }
+
+    const postReview = async() => {
+        const reviewData = {
+            userId: "66c327223f1bbf690b5394c6",   
+            bookId: "66e08c9b6530d3e059c08a0f",
+            rating: userRating,
+            review: "My favorite book",    
+        };
+        try{
+            //const response = await fetch("https://bookclub-6dmc.onrender.com/review", {
+            const response = await fetch("http://localhost:3000/review", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify(reviewData),
+            });
+            const res = await response.json();
+            console.log(res);
+        }catch(err){
+            console.error("Failed to post a review")
+        }
     }
 
     return(
@@ -38,32 +63,29 @@ export default function Reviews() {
                     </div>
                     <br/>
                     <button onClick={toggleRatingModal}>button</button>
-
+                </div>
+                
                 {ratingModal && (
                     <div id="myModal" className="modal">
-                    <div className="modal-content">
-                    <span className="close" onClick={toggleRatingModal}>&times;</span>
-                    <br/>
-                    <StarRating rating={userRating} setRating={setUserRating} /> 
-                    <div class="leave-comment-section">
-                        <label for="comment">Leave a comment:</label>
-                        <textarea 
-                            id="comment" 
-                            placeholder="Write your comment here..." 
-                            rows="4"
-                            onChange={(e) => setComment(e.target.value)}
-                            value={comment}>
-                        </textarea>
-                        <button type="submit" onClick={handleSubmit}>Post Comment</button>
-                    </div>
-                    </div>
+                        <div className="modal-content">
+                            <span className="close" onClick={toggleRatingModal}>&times;</span>
+                            <br/>
+                            <StarRating rating={userRating} setRating={setUserRating} /> 
+                                <div className="leave-comment-section">
+                                    <label for="comment">Leave a comment:</label>
+                                    <textarea 
+                                        id="comment" 
+                                        placeholder="Write your comment here..." 
+                                        rows="4"
+                                        onChange={(e) => setComment(e.target.value)}
+                                        value={comment}>
+                                    </textarea>
+                                    <button type="submit" onClick={handleSubmit}>Post Comment</button>
+                                </div>
+                        </div>
                     </div>
                 )}
-                    
                 
-
-
-                </div>
             </div>
             <br></br>
             <h3>Reviews</h3>
@@ -83,11 +105,7 @@ export default function Reviews() {
             ) : (
                 <p>No reviews available for this book.</p>
             )}
-
         <br/>
-
         </div>
-        
     );
-
 }
