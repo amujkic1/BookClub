@@ -7,9 +7,9 @@ export default function Reviews() {
     const [username, setUsername] = useState('');
     const [comment, setComment] = useState('');
     const [userRating, setUserRating] = useState(0);
-    const [stars, setStars] = useState(0)
     const location = useLocation();
     const { title, coverImageUrl, rating, reviews = [] } = location.state || {} 
+    const [ratingModal, setRatingModal] = useState(false)
     
     const handleSubmit = (e) => {
         e.preventDefault(); 
@@ -20,6 +20,10 @@ export default function Reviews() {
         setComment('');
         setUserRating(0);
     };
+
+    const toggleRatingModal = () => {
+        setRatingModal(!ratingModal)
+    }
 
     return(
             <div className="book-review-section">
@@ -32,8 +36,16 @@ export default function Reviews() {
                         <span className="stars">★★★★★</span>
                         <span>({rating})</span>
                     </div>
+                    <br/>
+                    <button onClick={toggleRatingModal}>button</button>
+
+                {ratingModal && (
+                    <div id="myModal" className="modal">
+                    <div className="modal-content">
+                    <span className="close" onClick={toggleRatingModal}>&times;</span>
+                    <br/>
                     <StarRating rating={userRating} setRating={setUserRating} /> 
-                    <div class="comment-section">
+                    <div class="leave-comment-section">
                         <label for="comment">Leave a comment:</label>
                         <textarea 
                             id="comment" 
@@ -44,7 +56,13 @@ export default function Reviews() {
                         </textarea>
                         <button type="submit" onClick={handleSubmit}>Post Comment</button>
                     </div>
+                    </div>
+                    </div>
+                )}
+                    
                 
+
+
                 </div>
             </div>
             <br></br>
