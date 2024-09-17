@@ -28,6 +28,10 @@
 .comment-section {
     margin-top: 20px;
     max-height: 200px;
+}
+.comment-container {
+    margin-top: 20px;
+    max-height: 150px;
     overflow-y: auto;
 }
 .comment {

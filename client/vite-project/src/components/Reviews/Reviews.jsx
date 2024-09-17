@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import './Reviews.css';
 import StarRating from '../StarRating/StarRating';
 import Cookies from 'js-cookie';
+import {fetchBookReviewsById} from '../Utils/apiUtils';
 
 export default function Reviews() {
     const [username, setUsername] = useState('');
@@ -11,17 +12,30 @@ export default function Reviews() {
     const location = useLocation();
     const { bookId, title, coverImageUrl, rating, reviews = [] } = location.state || {} 
     const [ratingModal, setRatingModal] = useState(false)
+    const [reviewList, setReviewList] = useState([]);
     
-    const handleSubmit = (e) => {
+    useEffect(() => {
+        setReviewList(reviews)
+    }, [reviews])
+
+    const handleSubmit = async (e) => {
         e.preventDefault(); 
 
         console.log('Comment:', comment);
         console.log('Rating:', userRating);
 
-        postReview()
+        await postReview()
         setComment('');
         setUserRating(0);
+        await refreshReviews();
+        toggleRatingModal();
     };
+
+    const refreshReviews = async() => {
+        const updatedReviews = await fetchBookReviewsById(bookId)
+        console.log('updated reviews ', updatedReviews)
+        setReviewList(updatedReviews)
+    }
 
     const toggleRatingModal = () => {
         setRatingModal(!ratingModal)
@@ -90,22 +104,24 @@ export default function Reviews() {
             </div>
             <br></br>
             <h3>Reviews</h3>
-
-            {reviews.length > 0 ? (
-                reviews.map((review) => (
-                    <div key={review._id} className="comment-section">
-                        <div className="comment">
-                            <div className="user-name">{review.user?.username || 'Anonymous'}</div>
-                            <div className="user-rating">
-                                Rating: <span className="stars">★★★★★</span> {review.rating}
+            <div className='comment-container'>
+                {reviewList.length > 0 ? (
+                    reviewList.map((review) => (
+                        
+                            <div key={review._id} className="comment-section">
+                                <div className="comment">
+                                    <div className="user-name">{review.user?.username || 'Anonymous'}</div>
+                                    <div className="user-rating">
+                                        Rating: <span className="stars">★★★★★</span> {review.rating}
+                                    </div>
+                                    <div className="user-comment">{review.review}</div>
+                                </div>
                             </div>
-                            <div className="user-comment">{review.review}</div>
-                        </div>
-                    </div>    
-                ))
-            ) : (
-                <p>No reviews available for this book.</p>
-            )}
+                    ))
+                ) : (
+                    <p>No reviews available for this book.</p>
+                )}
+            </div>
         <br/>
         </div>
     );

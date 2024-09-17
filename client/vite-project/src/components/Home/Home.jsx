@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import BookCard from '../BookCard/BookCard';
 import Cookies from 'js-cookie';
 import './Home.css';
+import {fetchBookReviewsById} from '../Utils/apiUtils'
+
 
 export default function Home() {
     const navigate = useNavigate();
@@ -37,25 +39,6 @@ export default function Home() {
             setErrorMessage("Failed to retrieve books.")
         })
     }
-
-    const fetchBookReviewsById = async (bookId) => {
-        try {
-            //const response = await fetch(`https://bookclub-6dmc.onrender.com/reviews/${bookId}`, {
-            const response = await fetch(`http://localhost:3000/reviews/${bookId}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include',
-            });
-            const data = await response.json();
-            console.log('data', data); 
-            return data; 
-        } catch (error) {
-            console.error("Failed to retrieve reviews.");
-            return null; 
-        }
-    };
 
     const handleCardClick = async (bookId, title, author, coverImageUrl) => {
         console.log('card clicked')
