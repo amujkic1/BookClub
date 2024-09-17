@@ -6,14 +6,20 @@ import StarRating from '../StarRating/StarRating';
 export default function Reviews() {
     const [username, setUsername] = useState('');
     const [comment, setComment] = useState('');
+    const [userRating, setUserRating] = useState(0);
     const [stars, setStars] = useState(0)
     const location = useLocation();
     const { title, coverImageUrl, rating, reviews = [] } = location.state || {} 
     
-    useEffect(() => {
-        console.log('location.state:', location.state);
-        console.log('Reviews:', reviews);
-    }, [location.state, reviews]);
+    const handleSubmit = (e) => {
+        e.preventDefault(); 
+
+        console.log('Comment:', comment);
+        console.log('Rating:', userRating);
+
+        setComment('');
+        setUserRating(0);
+    };
 
     return(
             <div className="book-review-section">
@@ -26,9 +32,19 @@ export default function Reviews() {
                         <span className="stars">★★★★★</span>
                         <span>({rating})</span>
                     </div>
-                    <div>
-                        <StarRating rating={stars} setRating={setStars} />
+                    <StarRating rating={userRating} setRating={setUserRating} /> 
+                    <div class="comment-section">
+                        <label for="comment">Leave a comment:</label>
+                        <textarea 
+                            id="comment" 
+                            placeholder="Write your comment here..." 
+                            rows="4"
+                            onChange={(e) => setComment(e.target.value)}
+                            value={comment}>
+                        </textarea>
+                        <button type="submit" onClick={handleSubmit}>Post Comment</button>
                     </div>
+                
                 </div>
             </div>
             <br></br>
@@ -51,8 +67,6 @@ export default function Reviews() {
             )}
 
         <br/>
-
-
 
         </div>
         
