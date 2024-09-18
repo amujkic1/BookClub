@@ -13,6 +13,9 @@ export default function Navbar() {
             <li>
             <a href="/profile">My Profile</a>
             </li>
+            <li>
+            <a href="/chat">Chat</a>
+            </li>
         </ul>
         </nav>
 }

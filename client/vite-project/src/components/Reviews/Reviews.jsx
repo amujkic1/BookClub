@@ -84,8 +84,7 @@ export default function Reviews() {
                     <div id="myModal" className="modal">
                         <div className="modal-content">
                             <span className="close" onClick={toggleRatingModal}>&times;</span>
-                            <br/>
-                            
+                            <br/>                            
                                 <div className="leave-comment-section">
                                 <StarRating rating={userRating} setRating={setUserRating} /> 
                                     <label for="comment">Leave a comment:</label>
