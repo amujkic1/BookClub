@@ -19,10 +19,6 @@ export default function Home() {
         fetchBooks();
     }, []);
 
-    const goToChatPage = () => {
-        navigate('/chat');
-    };
-
     const fetchBooks = async (event) => {
         fetch('https://bookclub-6dmc.onrender.com/books', {
         //fetch('http://localhost:3000/books', {
@@ -65,9 +61,6 @@ export default function Home() {
                 <p>to your favorite book-sharing platform.</p>
             </div>
         </header>
-        <div className="button-group">
-                <button onClick={goToChatPage}>Go to Chat</button>
-            </div>
         <main>
             <section className="about-section">
                 <h2>About Us</h2>

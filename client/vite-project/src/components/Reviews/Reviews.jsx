@@ -69,7 +69,7 @@ export default function Reviews() {
             <div className="book-review-section">
             <div className="book-header">
                 <img src={coverImageUrl} alt="Book Cover" className="book-cover"/>
-                <div>
+                <div className='avg-rating-container'>
                     <div className="book-title">{title}</div>
                     <div className="average-rating">
                         Average Rating: 
@@ -77,16 +77,16 @@ export default function Reviews() {
                         <span>({rating})</span>
                     </div>
                     <br/>
-                    <button onClick={toggleRatingModal}>button</button>
+                    <button className='add-review-button' onClick={toggleRatingModal}>Add your review</button>
                 </div>
                 
                 {ratingModal && (
                     <div id="myModal" className="modal">
                         <div className="modal-content">
                             <span className="close" onClick={toggleRatingModal}>&times;</span>
-                            <br/>
-                            <StarRating rating={userRating} setRating={setUserRating} /> 
+                            <br/>                            
                                 <div className="leave-comment-section">
+                                <StarRating rating={userRating} setRating={setUserRating} /> 
                                     <label for="comment">Leave a comment:</label>
                                     <textarea 
                                         id="comment" 
