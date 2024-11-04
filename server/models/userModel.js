@@ -18,6 +18,12 @@ const userSchema = new Schema({
         required: true, 
         unique: true 
     },
+    favoriteBooks: [
+        { 
+            type: Schema.Types.ObjectId, 
+            ref: 'Book'
+        }
+    ]
 });
 
 // static signup model
