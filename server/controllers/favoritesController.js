@@ -3,7 +3,6 @@ const User = require("../models/userModel")
 
 async function addFavorite(req, res) {
     const {email, bookId} = req.body
-    console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
     try{
         const user = await User.findOne({email})
         const book = await Book.findById(bookId)
