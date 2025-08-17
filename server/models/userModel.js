@@ -5,8 +5,7 @@ const validator = require('validator')
 
 const userSchema = new Schema({
     username: { 
-        type: String, 
-        required: true, 
+        type: String,  
         unique: true 
     },
     password: { 
@@ -54,8 +53,9 @@ userSchema.statics.signup = async function (username, email, password) {
 
 }
 
-userSchema.statics.login = async function(username, email, password) {
-    if(!username || !email || !password){
+userSchema.statics.login = async function(email, password) {
+    
+    if(!email || !password){
         throw Error('All fields must be filled!')
     }
 

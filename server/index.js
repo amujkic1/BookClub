@@ -26,7 +26,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: ["https://bookclub-frontend1.onrender.com", "http://localhost:5173", "htto://localhost:3000"],
+    origin: ["https://bookclub-frontend1.onrender.com", "http://localhost:5173", "http://localhost:3000", "http://localhost:4200"],
     credentials: true,
   })
 );
