@@ -10,8 +10,11 @@ const bookSchema = new Schema({
         type: String,
         required: true
     },
-    publishDate: {
-        type: Date,
+    publisher: {
+        type: String,
+    },
+    year: {
+        type: Number,
     },
     isbn: {
         type: String,
@@ -25,6 +28,10 @@ const bookSchema = new Schema({
     },
     coverImageUrl: {
         type: String,
+    },
+    pages:
+    {
+        type: Number,
     }
 })
 

@@ -1,9 +1,9 @@
 const Book = require("../models/bookModel")
 
 async function createBook(req, res){
-    const { title, author, publishDate, isbn, genre, summary, language, pages, coverImageUrl } = req.body;
+    const { title, author, publisher, year, isbn, genre, summary, coverImageUrl, pages } = req.body;
     try{
-        const book = await Book.create({title, author, publishDate, isbn, genre, summary, language, pages, coverImageUrl})
+        const book = await Book.create({title, author, publisher, year, isbn, genre, summary, coverImageUrl, pages })
         res.status(200).json({message: "Book created successfully"})
     }catch(err){
         res.status(500).json({error: err.message})
@@ -32,10 +32,19 @@ async function getBookById(req, res){
     }
 }
 
+async function deleteBook(req, res) {
+    const {bookId} = req.params
+    try{
+        await Book.findByIdAndDelete(bookId)
+        return res.status(200).json({message: 'Book deleted successfully'})
+    }catch(err){
+        res.status(500).json({error: err.message})
+    }
+}
 
 module.exports = {
     createBook,
     getAllBooks,
-    getBookById
+    getBookById,
+    deleteBook
 }
-
