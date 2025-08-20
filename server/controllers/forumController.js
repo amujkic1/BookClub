@@ -5,10 +5,11 @@ async function postThread(req, res) {
     try{
         const thread = new Thread({
             title: req.body.title,
-            authorId: req.body.authorId
+            authorId: req.user._id
         })
         await thread.save()
-        res.status(200).json(thread)
+        const populatedThread = await thread.populate('authorId', 'username');
+        res.status(200).json(populatedThread)
     }catch(err){
         res.status(500).json({error: err.message})
     }
