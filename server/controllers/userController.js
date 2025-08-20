@@ -13,11 +13,18 @@ async function login(req, res) {
     console.log(req.body)
     
     try{
-        const user = await User.login(email, password)
-        
+        const user = await User.login(email, password)        
         const token = createToken(user._id)
+
+        res.cookie("jwt", token, {
+        httpOnly: true, // client JS ne može čitati cookie
+        //secure: process.env.NODE_ENV === "production", // samo HTTPS u produkciji
+        secure: false,
+        sameSite: "lax",
+        maxAge: 24 * 60 * 60 * 1000 // 1 dan
+        });
         
-        res.status(200).json({email, token})
+        res.status(200).json({email})
     } catch(err){
         console.log(err)
         res.status(400).json({error: err.message})
