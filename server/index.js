@@ -10,6 +10,7 @@ const bookRouter = require('./routes/books');
 const eventRouter = require('./routes/events');
 const userRouter = require('./routes/users');
 const reviewRouter = require('./routes/reviews');
+const forumRouter = require('./routes/forum')
 
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -39,6 +40,7 @@ app.use('/', bookRouter);
 app.use('/', eventRouter);
 app.use('/user', userRouter);
 app.use('/', reviewRouter);
+app.use('/', forumRouter);
 
 server.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
