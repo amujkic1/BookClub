@@ -16,10 +16,6 @@ const bookSchema = new Schema({
     year: {
         type: Number,
     },
-    isbn: {
-        type: String,
-        unique: true,
-    },
     genre: {
         type: String,
     },
