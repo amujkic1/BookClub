@@ -5,7 +5,8 @@ async function postThread(req, res) {
     try{
         const thread = new Thread({
             title: req.body.title,
-            authorId: req.user._id
+            authorId: req.user._id,
+            content: req.body.content
         })
         await thread.save()
         const populatedThread = await thread.populate('authorId', 'username');
@@ -20,11 +21,16 @@ async function getAllThreads(req,res) {
     res.status(200).json(threads)
 }
 
+async function getThreadById(req,res) {
+    const thread = await Thread.findOne({_id: req.params.threadId}).populate("authorId", "username")
+    res.status(200).json(thread)    
+}
+
 async function addPostTothread(req,res) {
     try{
         const post = new Post({
             threadId: req.params.threadId,
-            authorId: req.body.authorId,
+            authorId: req.user._id,
             content: req.body.content
         })
         await post.save()
@@ -33,7 +39,8 @@ async function addPostTothread(req,res) {
             $push: {posts: post._id}
         })
 
-        res.status(201).json(post)
+        const populatedPost = await post.populate('authorId', 'username');
+        res.status(201).json(populatedPost)
     }catch(err){
         res.status(400).json({ error: err.message });
     }
@@ -48,5 +55,6 @@ module.exports = {
     postThread,
     getAllThreads,
     addPostTothread,
-    getAllPostsFromAThread
+    getAllPostsFromAThread,
+    getThreadById
 }

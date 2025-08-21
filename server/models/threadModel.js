@@ -11,6 +11,9 @@ const threadSchema = new Schema({
         ref: "User",
         required: true
     },
+    content: {
+        type: String
+    },
     createdAt: {
         type: Date,
         default: Date.now
