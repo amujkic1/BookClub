@@ -45,7 +45,8 @@ async function deleteBook(req, res) {
 
 async function addBookToList(req,res){
     try{
-        const {bookId, userId} = req.body
+        const { bookId } = req.body
+        const userId = req.user._id
         const exists = await Tbr.findOne({userId, bookId})
 
         console.log(exists)
@@ -63,7 +64,7 @@ async function addBookToList(req,res){
 
 async function getAllBookFromList(req,res){
     try{
-        const userId = req.params.userId
+        const userId = req.user._id
         const tbrList = await Tbr.find({userId}).populate("bookId")
         return res.status(200).json(tbrList)
     }catch(err){
