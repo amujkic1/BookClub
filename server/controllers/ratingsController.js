@@ -1,4 +1,5 @@
-const ratingModel = require('../models/ratingModel')
+const Rating = require('../models/ratingModel')
+const mongoose = require('mongoose') 
 
 async function addRating(req,res) {
     try{
@@ -11,6 +12,7 @@ async function addRating(req,res) {
         );
         return res.status(200).json(rating)
     }catch(err){
+        console.log(err)
         res.status(500).json({error: err.message})
     } 
 }
@@ -24,6 +26,7 @@ async function getAverageRating(req,res) {
         ])
         res.json(result[0] || { avg: 0, count: 0 });
     }catch(err){
+                console.log(err)
         res.status(500).json({error: err.message})
     }
 }
