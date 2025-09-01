@@ -32,6 +32,17 @@ async function login(req, res) {
 
 } 
 
+async function currentUser(req,res) {
+    const token = req.cookies.jwt
+    if(!token) return res.status(401).json({message: "Not logged in"})
+    try{
+        const decoded = jwt.verify(token, process.env.JWT_SECRET)
+        res.json({user: decoded})
+    }catch(err){
+        res.status(401).json({message: "Invalid token"})
+    }
+}
+
 async function signup(req, res) {
     
     const {username, email, password} = req.body
@@ -168,5 +179,6 @@ module.exports = {
     findUserByEmail,
     deleteUser,
     updateUser,
-    getAllUsers
+    getAllUsers,
+    currentUser
 }
