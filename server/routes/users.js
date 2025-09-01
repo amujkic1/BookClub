@@ -11,5 +11,6 @@ router.delete("/user", userController.deleteUser)
 router.put("/user", userController.updateUser)
 router.get("/users", userController.getAllUsers)
 router.post("/addfavorite", favoritesController.addFavorite)
+router.get("/me", userController.currentUser)
 
 module.exports = router
