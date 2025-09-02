@@ -17,6 +17,11 @@ const userSchema = new Schema({
         required: true, 
         unique: true 
     },
+    role: {
+        type: String,
+        enum: ["Admin", "User"],
+        default: "User"
+    },
     favoriteBooks: [
         { 
             type: Schema.Types.ObjectId, 
