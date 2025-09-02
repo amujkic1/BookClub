@@ -3,7 +3,7 @@ const router = express.Router()
 const bookController = require('../controllers/bookController')
 const { requireAuth, requireRole } = require('../middleware/requireAuth')
 
-router.post('/book', bookController.createBook)
+router.post('/book', requireAuth, requireRole("Admin"), bookController.createBook)
 router.get('/books', requireAuth, requireRole("User"), bookController.getAllBooks)
 router.get('/books/:bookId', bookController.getBookById)
 router.delete('/books/:bookId', bookController.deleteBook)
